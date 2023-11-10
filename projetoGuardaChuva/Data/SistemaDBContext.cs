@@ -15,6 +15,7 @@ namespace projetoGuardaChuva.Data
         public DbSet<Funcionario> Funcionarios { get; set; }
         public DbSet<Setor> Setor { get; set; }
         public DbSet<Estoque> Estoque { get; set; }
+        public DbSet<Endereco> Endereco { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -22,6 +23,7 @@ namespace projetoGuardaChuva.Data
             modelBuilder.ApplyConfiguration(new FuncionarioMap());
             modelBuilder.ApplyConfiguration(new SetorMap());
             modelBuilder.ApplyConfiguration(new EstoqueMap());
+            modelBuilder.ApplyConfiguration(new EnderecoMap());
 
             base.OnModelCreating(modelBuilder);
         }

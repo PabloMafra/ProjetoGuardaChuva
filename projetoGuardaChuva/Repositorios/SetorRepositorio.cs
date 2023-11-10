@@ -22,5 +22,10 @@ namespace projetoGuardaChuva.Repositorios
             return nomeSetor;
         }
 
+        public async Task<List<Setor>> ListarSetores()
+        {
+            return await _dbContext.Setor
+                .ToListAsync();
+        }
     }
 }
