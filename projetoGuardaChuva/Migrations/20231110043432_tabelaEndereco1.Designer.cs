@@ -11,8 +11,8 @@ using projetoGuardaChuva.Data;
 namespace projetoGuardaChuva.Migrations
 {
     [DbContext(typeof(SistemaDBContext))]
-    [Migration("20231110003841_InitialDB")]
-    partial class InitialDB
+    [Migration("20231110043432_tabelaEndereco1")]
+    partial class tabelaEndereco1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,6 +22,66 @@ namespace projetoGuardaChuva.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("projetoGuardaChuva.Models.Endereco", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<double>("Altura")
+                        .HasColumnType("float");
+
+                    b.Property<double>("AnguloInclinacao")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Bairro")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<double>("Base")
+                        .HasColumnType("float");
+
+                    b.Property<int>("Cep")
+                        .HasMaxLength(255)
+                        .HasColumnType("int");
+
+                    b.Property<string>("Cidade")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("Coordenadas")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("Estado")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<int>("IdSetor")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Numero")
+                        .HasMaxLength(255)
+                        .HasColumnType("int");
+
+                    b.Property<string>("Rua")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdSetor");
+
+                    b.ToTable("Endereco");
+                });
 
             modelBuilder.Entity("projetoGuardaChuva.Models.Estoque", b =>
                 {
@@ -88,6 +148,17 @@ namespace projetoGuardaChuva.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Setor");
+                });
+
+            modelBuilder.Entity("projetoGuardaChuva.Models.Endereco", b =>
+                {
+                    b.HasOne("projetoGuardaChuva.Models.Setor", "Setor")
+                        .WithMany()
+                        .HasForeignKey("IdSetor")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Setor");
                 });
 #pragma warning restore 612, 618
         }

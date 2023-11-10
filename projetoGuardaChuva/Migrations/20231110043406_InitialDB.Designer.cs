@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using projetoGuardaChuva.Data;
 
@@ -10,9 +11,10 @@ using projetoGuardaChuva.Data;
 namespace projetoGuardaChuva.Migrations
 {
     [DbContext(typeof(SistemaDBContext))]
-    partial class SistemaDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231110043406_InitialDB")]
+    partial class InitialDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,7 +65,6 @@ namespace projetoGuardaChuva.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<int>("IdSetor")
-                        .HasMaxLength(255)
                         .HasColumnType("int");
 
                     b.Property<int>("Numero")
@@ -76,6 +77,8 @@ namespace projetoGuardaChuva.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdSetor");
 
                     b.ToTable("Endereco");
                 });
@@ -145,6 +148,17 @@ namespace projetoGuardaChuva.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Setor");
+                });
+
+            modelBuilder.Entity("projetoGuardaChuva.Models.Endereco", b =>
+                {
+                    b.HasOne("projetoGuardaChuva.Models.Setor", "Setor")
+                        .WithMany()
+                        .HasForeignKey("IdSetor")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Setor");
                 });
 #pragma warning restore 612, 618
         }

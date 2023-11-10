@@ -11,8 +11,8 @@ using projetoGuardaChuva.Data;
 namespace projetoGuardaChuva.Migrations
 {
     [DbContext(typeof(SistemaDBContext))]
-    [Migration("20231110040956_tabelaEndereco3")]
-    partial class tabelaEndereco3
+    [Migration("20231110051034_idSetor")]
+    partial class idSetor
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -65,6 +65,7 @@ namespace projetoGuardaChuva.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<int>("IdSetor")
+                        .HasMaxLength(255)
                         .HasColumnType("int");
 
                     b.Property<int>("Numero")
@@ -77,8 +78,6 @@ namespace projetoGuardaChuva.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IdSetor");
 
                     b.ToTable("Endereco");
                 });
@@ -148,17 +147,6 @@ namespace projetoGuardaChuva.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Setor");
-                });
-
-            modelBuilder.Entity("projetoGuardaChuva.Models.Endereco", b =>
-                {
-                    b.HasOne("projetoGuardaChuva.Models.Setor", "Setor")
-                        .WithMany()
-                        .HasForeignKey("IdSetor")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Setor");
                 });
 #pragma warning restore 612, 618
         }

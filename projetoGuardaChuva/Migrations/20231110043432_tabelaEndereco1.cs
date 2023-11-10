@@ -4,7 +4,7 @@
 
 namespace projetoGuardaChuva.Migrations
 {
-    public partial class testeMudandoNome : Migration
+    public partial class tabelaEndereco1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -11,7 +11,6 @@
         public string Cidade { get; set; }
         public int IdSetor { get; set; }
         public string Coordenadas { get; set; }
-        public Setor Setor { get; set; }
         public double Altura { get; set; }
         public double Base { get; set; }
         public double AnguloInclinacao { get; set; }

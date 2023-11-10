@@ -15,17 +15,12 @@ namespace projetoGuardaChuva.Data.Map
             builder.Property(x => x.Numero).IsRequired().HasMaxLength(255);
             builder.Property(x => x.Estado).IsRequired().HasMaxLength(255);
             builder.Property(x => x.Cidade).IsRequired().HasMaxLength(255);
+            builder.Property(x => x.IdSetor).IsRequired().HasMaxLength(255);
             builder.Property(x => x.Coordenadas).IsRequired().HasMaxLength(255);
             builder.Property(x => x.Altura).IsRequired();
             builder.Property(x => x.Base).IsRequired();
             builder.Property(x => x.AnguloInclinacao).IsRequired();
             builder.Property(x => x.Id).UseIdentityColumn();
-
-            builder.HasOne(x => x.Setor)
-                .WithMany()
-                .HasForeignKey(x => x.IdSetor)
-                .IsRequired();
-
         }
     }
 }

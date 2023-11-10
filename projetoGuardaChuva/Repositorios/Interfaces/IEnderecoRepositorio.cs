@@ -1,4 +1,5 @@
-﻿using projetoGuardaChuva.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using projetoGuardaChuva.Models;
 
 namespace projetoGuardaChuva.Repositorios.Interfaces
 {
