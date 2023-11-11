@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using projetoGuardaChuva.Models;
 using projetoGuardaChuva.Repositorios.Interfaces;
 using Microsoft.AspNetCore.Cors;
+using projetoGuardaChuva.Utils;
 
 namespace projetoGuardaChuva.Controllers
 {
@@ -26,6 +27,31 @@ namespace projetoGuardaChuva.Controllers
             Endereco result = await _enderecoRepositorio.CadastrarEndereco(endereco);
 
             return Ok(result);
+        }
+
+        [HttpGet("calcular-volume")]
+        public ActionResult<double> CalcularVolume(double altura, double @base, double anguloInclinacao)
+        {
+            try
+            {
+                var volumeCalculator = new VolumeDaMicrobacia(altura, @base, anguloInclinacao);
+                var volumeCalculado = volumeCalculator.CalculoVolumeDaMicrobacia();
+                var volumeEmLitros = volumeCalculator.ConverteParaLitros(volumeCalculado);
+
+                return Ok(volumeEmLitros.ToString("F2"));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro ao calcular o volume: {ex.Message}");
+            }
+        }
+
+        [HttpGet("buscar/nomeSetor")]
+        public async Task<IActionResult> BuscarPorNomeSetor([FromQuery] string nomeSetor)
+        {
+            var enderecos = await _enderecoRepositorio.BuscarPorNomeSetor(nomeSetor);
+
+            return Ok(enderecos);
         }
 
     }

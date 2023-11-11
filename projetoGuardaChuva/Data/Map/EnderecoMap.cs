@@ -20,6 +20,8 @@ namespace projetoGuardaChuva.Data.Map
             builder.Property(x => x.Altura).IsRequired();
             builder.Property(x => x.Base).IsRequired();
             builder.Property(x => x.AnguloInclinacao).IsRequired();
+            builder.Property(x => x.VolumeBacia).IsRequired();
+
             builder.Property(x => x.Id).UseIdentityColumn();
         }
     }
