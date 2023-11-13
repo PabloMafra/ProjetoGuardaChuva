@@ -30,14 +30,13 @@ namespace projetoGuardaChuva.Controllers
 
         [HttpGet]
         [Route("listar")]
-        public async Task<ActionResult<List<Setor>>> ListarSetores()
+        public async Task<ActionResult<List<Setor>>> ListarSetores([FromQuery] string? nomeSetor)
         {
-            Response.Headers.Add("Access-Control-Allow-Origin", "*");
-
-            List<Setor> setor = await _setorRepositorio.ListarSetores();
+            List<Setor> setor = await _setorRepositorio.ListarSetores(nomeSetor);
 
             return Ok(setor);
         }
+
 
     }
 }

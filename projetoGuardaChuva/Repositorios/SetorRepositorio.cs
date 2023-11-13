@@ -22,10 +22,18 @@ namespace projetoGuardaChuva.Repositorios
             return nomeSetor;
         }
 
-        public async Task<List<Setor>> ListarSetores()
+        public async Task<List<Setor>> ListarSetores(string? nomeSetor)
         {
-            return await _dbContext.Setor
-                .ToListAsync();
+            if (nomeSetor != null && !string.IsNullOrEmpty(nomeSetor))
+            {
+                return await _dbContext.Setor
+                    .Where(s => s.Nome.Contains(nomeSetor))
+                    .ToListAsync();
+            }
+            else
+            {
+                return await _dbContext.Setor.ToListAsync();
+            }
         }
     }
 }
