@@ -7,5 +7,7 @@ namespace projetoGuardaChuva.Repositorios.Interfaces
     {
         Task<Endereco> CadastrarEndereco(Endereco endereco);
         Task<List<EnderecoOutput>> BuscarPorNomeSetor(string nomeSetor);
+        Task<bool> DeletarEndereco(int id);
+        Task<bool> EditarDomicilio(Endereco endereco);
     }
 }

@@ -54,5 +54,50 @@ namespace projetoGuardaChuva.Controllers
             return Ok(enderecos);
         }
 
+        [HttpDelete("deletar")]
+        public async Task<IActionResult> DeletarEndereco([FromQuery] int id)
+        {
+            try
+            {
+                var sucesso = await _enderecoRepositorio.DeletarEndereco(id);
+
+                if (sucesso)
+                {
+                    return NoContent();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erro interno: {ex.Message}");
+            }
+        }
+
+        [HttpPut("atualizar")]
+        public async Task<IActionResult> AtualizarEndereco([FromBody] Endereco endereco)
+        {
+            try
+            {
+                var enderecoAtualizado = await _enderecoRepositorio.EditarDomicilio(endereco);
+
+                if (enderecoAtualizado != null)
+                {
+                    return Ok(enderecoAtualizado);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erro interno: {ex.Message}");
+            }
+        }
+
+
     }
 }

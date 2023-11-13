@@ -2,6 +2,7 @@
 using projetoGuardaChuva.Models;
 using projetoGuardaChuva.Repositorios.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 
 namespace projetoGuardaChuva.Repositorios
 {
@@ -72,6 +73,48 @@ namespace projetoGuardaChuva.Repositorios
             return new List<EnderecoOutput>();
         }
 
+        public async Task<bool> DeletarEndereco(int id)
+        {
+            var endereco = await _dbContext.Endereco
+                .Where(e => e.Id == id)
+                .FirstOrDefaultAsync();
 
+            if (endereco == null)
+            {
+                return false;
+            }
+
+            _dbContext.Endereco.Remove(endereco);
+            await _dbContext.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<bool> EditarDomicilio(Endereco endereco)
+        {
+            try
+            {
+                var enderecoAtualizado = await _dbContext.Endereco
+                    .Where(e => e.Id == endereco.Id)
+                    .FirstOrDefaultAsync();
+
+                if (enderecoAtualizado != null)
+                {
+                    enderecoAtualizado.IdSetor = endereco.IdSetor;
+                    enderecoAtualizado.Rua = endereco.Rua;
+                    enderecoAtualizado.Coordenadas = endereco.Coordenadas;
+
+                    await _dbContext.SaveChangesAsync();
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao atualizar o endereço: {ex.Message}");
+                throw;
+            }
+        }
     }
 }
