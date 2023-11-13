@@ -83,7 +83,7 @@ namespace projetoGuardaChuva.Controllers
             {
                 var enderecoAtualizado = await _enderecoRepositorio.EditarDomicilio(endereco);
 
-                if (enderecoAtualizado != null)
+                if (enderecoAtualizado != false)
                 {
                     return Ok(enderecoAtualizado);
                 }
