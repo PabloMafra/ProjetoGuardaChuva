@@ -37,5 +37,48 @@ namespace projetoGuardaChuva.Repositorios
             }
         }
 
+        public async Task<bool> DeletarEstoque(int id)
+        {
+            var estoque = await _dbContext.Estoque
+                .Where(e => e.Id == id)
+                .FirstOrDefaultAsync();
+
+            if (estoque == null)
+            {
+                return false;
+            }
+
+            _dbContext.Estoque.Remove(estoque);
+            await _dbContext.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<bool> EditarEstoque(Estoque estoque)
+        {
+            try
+            {
+                var estoqueAtualizado = await _dbContext.Estoque
+                    .Where(e => e.Id == estoque.Id)
+                    .FirstOrDefaultAsync();
+
+                if (estoqueAtualizado != null)
+                {
+                    estoqueAtualizado.Id = estoque.Id;
+                    estoqueAtualizado.Litragem = estoque.Litragem;
+
+                    await _dbContext.SaveChangesAsync();
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao atualizar o estoque: {ex.Message}");
+                throw;
+            }
+        }
+
     }
 }

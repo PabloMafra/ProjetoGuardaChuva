@@ -35,5 +35,48 @@ namespace projetoGuardaChuva.Controllers
 
             return Ok(estoque);
         }
+
+        [HttpDelete("deletar")]
+        public async Task<IActionResult> DeletarEstoque([FromQuery] int id)
+        {
+            try
+            {
+                var sucesso = await _estoqueRepositorio.DeletarEstoque(id);
+
+                if (sucesso)
+                {
+                    return NoContent();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erro interno: {ex.Message}");
+            }
+        }
+        [HttpPut("atualizar")]
+        public async Task<IActionResult> AtualizarEstoque([FromBody] Estoque estoque)
+        {
+            try
+            {
+                var estoqueAtualizado = await _estoqueRepositorio.EditarEstoque(estoque);
+
+                if (estoqueAtualizado != false)
+                {
+                    return Ok(estoqueAtualizado);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erro interno: {ex.Message}");
+            }
+        }
     }
 }
