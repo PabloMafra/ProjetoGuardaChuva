@@ -2,7 +2,6 @@
 {
     public class Medidas
     {
-        public int IdEndereco { get; set; }
         public double Altura { get; set; }
         public double Base { get; set; }
         public double AnguloInclinacao { get; set; }

@@ -27,9 +27,9 @@ namespace projetoGuardaChuva
                     options => options.UseSqlServer(builder.Configuration.GetConnectionString("DataBase"))
                 );
 
-            builder.Services.AddScoped<IFuncionarioRepositorio, FuncionarioRepositorio>();
             builder.Services.AddScoped<ISetorRepositorio, SetorRepositorio>();
             builder.Services.AddScoped<IEstoqueRepositorio, EstoqueRepositorio>();
+            builder.Services.AddScoped<IEnderecoRepositorio, EnderecoRepositorio>();
 
 
             var app = builder.Build();

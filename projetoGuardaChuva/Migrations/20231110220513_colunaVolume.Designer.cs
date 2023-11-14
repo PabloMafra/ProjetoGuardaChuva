@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using projetoGuardaChuva.Data;
 
@@ -10,9 +11,10 @@ using projetoGuardaChuva.Data;
 namespace projetoGuardaChuva.Migrations
 {
     [DbContext(typeof(SistemaDBContext))]
-    partial class SistemaDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231110220513_colunaVolume")]
+    partial class colunaVolume
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,10 +93,6 @@ namespace projetoGuardaChuva.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("IdEndereco")
-                        .HasMaxLength(255)
-                        .HasColumnType("int");
-
                     b.Property<double>("Litragem")
                         .HasMaxLength(255)
                         .HasColumnType("float");
@@ -102,6 +100,38 @@ namespace projetoGuardaChuva.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Estoque");
+                });
+
+            modelBuilder.Entity("projetoGuardaChuva.Models.Funcionario", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Cargo")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("Genero")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Genero");
+
+                    b.Property<int>("Idade")
+                        .HasColumnType("int")
+                        .HasColumnName("Idade");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Funcionarios");
                 });
 
             modelBuilder.Entity("projetoGuardaChuva.Models.Setor", b =>
