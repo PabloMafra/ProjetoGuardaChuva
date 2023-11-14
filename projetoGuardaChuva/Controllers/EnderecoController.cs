@@ -47,7 +47,7 @@ namespace projetoGuardaChuva.Controllers
         }
 
         [HttpGet("buscar/nomeSetor")]
-        public async Task<IActionResult> BuscarPorNomeSetor([FromQuery] string nomeSetor)
+        public async Task<IActionResult> BuscarPorNomeSetor([FromQuery] string? nomeSetor)
         {
             var enderecos = await _enderecoRepositorio.BuscarPorNomeSetor(nomeSetor);
 

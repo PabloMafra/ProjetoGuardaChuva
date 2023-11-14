@@ -10,6 +10,7 @@ namespace projetoGuardaChuva.Data.Map
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Litragem).IsRequired().HasMaxLength(255);
+            builder.Property(x => x.IdEndereco).IsRequired().HasMaxLength(255);
             builder.Property(x => x.Id)
                 .UseIdentityColumn();
         }

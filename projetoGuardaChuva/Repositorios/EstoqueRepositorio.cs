@@ -25,7 +25,7 @@ namespace projetoGuardaChuva.Repositorios
 
         public async Task<List<Estoque>> ListarEstoque(double estoque)
         {
-            if (estoque != null )
+            if (estoque != 0)
             {
                 return await _dbContext.Estoque
                     .Where(s => s.Litragem == estoque)

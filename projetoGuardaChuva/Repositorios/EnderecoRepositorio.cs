@@ -41,6 +41,25 @@ namespace projetoGuardaChuva.Repositorios
 
         public async Task<List<EnderecoOutput>> BuscarPorNomeSetor(string nome)
         {
+            if (string.IsNullOrEmpty(nome))
+            {
+                return await _dbContext.Endereco
+                    .Select(endereco => new EnderecoOutput
+                    {
+                        Id = endereco.Id,
+                        Cep = endereco.Cep,
+                        Rua = endereco.Rua,
+                        Bairro = endereco.Bairro,
+                        Numero = endereco.Numero,
+                        Estado = endereco.Estado,
+                        Cidade = endereco.Cidade,
+                        IdSetor = endereco.IdSetor,
+                        Coordenadas = endereco.Coordenadas,
+                        VolumeBacia = endereco.VolumeBacia,
+                    })
+                    .ToListAsync();
+            }
+
             var resultado = await _dbContext.Setor
                 .Where(setor => setor.Nome.Contains(nome))
                 .Select(setor => new { setor.Id, setor.Nome })
