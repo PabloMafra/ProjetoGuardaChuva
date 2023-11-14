@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using projetoGuardaChuva.Models;
 using projetoGuardaChuva.Repositorios.Interfaces;
 using Microsoft.AspNetCore.Cors;
+using projetoGuardaChuva.Repositorios;
 
 namespace projetoGuardaChuva.Controllers
 {
@@ -22,6 +23,15 @@ namespace projetoGuardaChuva.Controllers
         public async Task<ActionResult<Estoque>> CadastrarEstoque([FromBody] Estoque litragem)
         {
             Estoque estoque = await _estoqueRepositorio.CadastrarEstoque(litragem);
+
+            return Ok(estoque);
+        }
+
+        [HttpGet]
+        [Route("listar")]
+        public async Task<ActionResult<List<Estoque>>> ListarEstoque([FromQuery] double litragem)
+        {
+            List<Estoque> estoque = await _estoqueRepositorio.ListarEstoque(litragem);
 
             return Ok(estoque);
         }
