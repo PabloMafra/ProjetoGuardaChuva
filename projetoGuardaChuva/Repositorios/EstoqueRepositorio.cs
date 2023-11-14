@@ -66,6 +66,7 @@ namespace projetoGuardaChuva.Repositorios
                 {
                     estoqueAtualizado.Id = estoque.Id;
                     estoqueAtualizado.Litragem = estoque.Litragem;
+                    estoqueAtualizado.IdEndereco = estoque.IdEndereco;
 
                     await _dbContext.SaveChangesAsync();
                     return true;
